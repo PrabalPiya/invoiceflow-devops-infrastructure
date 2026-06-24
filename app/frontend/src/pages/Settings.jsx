@@ -23,12 +23,6 @@ const Settings = () => {
           </div>
         </div>
       </section>
-
-      <section className="card space-y-3">
-        <h3 className="text-lg font-bold text-slate-950">Local API</h3>
-        <p className="text-sm text-slate-500">Frontend environment variable:</p>
-        <pre className="overflow-auto rounded-xl bg-slate-950 p-4 text-sm text-white">VITE_API_URL=http://localhost:5000/api</pre>
-      </section>
     </div>
   );
 };
