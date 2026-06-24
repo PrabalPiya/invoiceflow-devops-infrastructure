@@ -7,6 +7,7 @@ const invoiceRoutes = require('./routes/invoiceRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const { client, metricsMiddleware } = require('./middleware/metricsMiddleware');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(metricsMiddleware);
 
 app.get('/', (req, res) => {
   res.json({ message: 'InvoiceFlow API is running' });
@@ -29,5 +31,11 @@ app.use('/api/dashboard', dashboardRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
+
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  const metrics = await client.register.metrics();
+  res.end(metrics);
+});
 
 module.exports = app;
