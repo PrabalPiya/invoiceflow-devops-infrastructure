@@ -6,7 +6,7 @@ key_name      = "terraform"
 
 ssh_allowed_ip = "0.0.0.0/0"
 
-github_raw_argocd_app_url = "https://github.com/PrabalPiya/invoiceflow-devops-infrastructure/blob/main/argocd/application.yaml"
+github_raw_argocd_app_url = "https://raw.githubusercontent.com/PrabalPiya/invoiceflow-devops-infrastructure/main/argocd/application.yaml"
 
 db_name     = "invoiceflow"
 db_username = "postgres"

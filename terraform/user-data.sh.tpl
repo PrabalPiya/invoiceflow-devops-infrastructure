@@ -32,8 +32,8 @@ kubectl -n invoiceflow create secret generic invoiceflow-secrets \
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-# Wait a bit before applying ArgoCD Application
-sleep 90
+# Wait until ArgoCD server is ready
+kubectl wait --for=condition=available --timeout=180s deployment/argocd-server -n argocd
 
 # Apply your ArgoCD app from GitHub raw URL
 kubectl apply -f ${github_raw_argocd_url}
