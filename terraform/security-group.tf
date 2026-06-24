@@ -1,9 +1,10 @@
-resource "aws_security_group" "invoiceflow_sg" {
-  name        = "${var.project_name}-sg"
+resource "aws_security_group" "k3s_ec2" {
+  name        = "${var.project_name}-k3s-ec2-sg"
   description = "Security group for InvoiceFlow K3s EC2"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "SSH from my IP"
+    description = "SSH from my IP only"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -11,15 +12,7 @@ resource "aws_security_group" "invoiceflow_sg" {
   }
 
   ingress {
-    description = "Frontend NodePort"
-    from_port   = 30080
-    to_port     = 30080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "HTTP optional"
+    description = "HTTP public"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -27,7 +20,7 @@ resource "aws_security_group" "invoiceflow_sg" {
   }
 
   ingress {
-    description = "HTTPS optional"
+    description = "HTTPS public"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -43,6 +36,32 @@ resource "aws_security_group" "invoiceflow_sg" {
   }
 
   tags = {
-    Name = "${var.project_name}-sg"
+    Name = "${var.project_name}-k3s-ec2-sg"
+  }
+}
+
+resource "aws_security_group" "rds" {
+  name        = "${var.project_name}-rds-sg"
+  description = "Allow PostgreSQL only from K3s EC2"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description     = "PostgreSQL from K3s EC2 only"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.k3s_ec2.id]
+  }
+
+  egress {
+    description = "Allow outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-rds-sg"
   }
 }

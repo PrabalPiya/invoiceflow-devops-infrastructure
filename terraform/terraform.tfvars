@@ -1,0 +1,15 @@
+aws_region   = "ap-south-1"
+project_name = "invoiceflow"
+
+instance_type = "t3.small"
+key_name      = "terraform"
+
+ssh_allowed_ip = "0.0.0.0/0"
+
+github_raw_argocd_app_url = "https://github.com/PrabalPiya/invoiceflow-devops-infrastructure/blob/main/argocd/application.yaml"
+
+db_name     = "invoiceflow"
+db_username = "postgres"
+db_password = "postgres"
+
+jwt_secret = "invoice_scret_key"

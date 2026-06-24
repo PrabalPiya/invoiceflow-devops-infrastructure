@@ -1,9 +1,29 @@
-node_modules/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+#*.tfvars
+
+
+# Secrets
 .env
-.env.local
-.DS_Store
+.env.*
+*.pem
+*.key
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build
 dist/
 build/
-coverage/
+
+# Logs
 *.log
-.prisma/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

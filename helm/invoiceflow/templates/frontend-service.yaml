@@ -4,10 +4,9 @@ metadata:
   name: invoicefrontend
   namespace: {{ .Values.namespace }}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: invoicefrontend
   ports:
     - port: {{ .Values.frontend.port }}
       targetPort: {{ .Values.frontend.port }}
-      nodePort: {{ .Values.frontend.nodePort }}

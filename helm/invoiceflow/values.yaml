@@ -13,16 +13,10 @@ frontend:
     tag: v1
     pullPolicy: Always
   port: 80
-  nodePort: 30080
 
-postgres:
-  image: postgres:16-alpine
-  port: 5432
-  storage: 2Gi
+ingress:
+  enabled: true
+  className: traefik
 
 secrets:
-  postgresUser: postgres
-  postgresPassword: postgres
-  postgresDb: invoiceflow
-  jwtSecret: invoiceflow_secret_key
-  jwtExpiresIn: 7d
+  existingSecret: invoiceflow-secrets
