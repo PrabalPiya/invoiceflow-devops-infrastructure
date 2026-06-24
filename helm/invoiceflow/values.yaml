@@ -13,7 +13,7 @@ frontend:
     tag: v1
     pullPolicy: Always
   port: 80
-  nodePort: 30081
+  nodePort: 30080
 
 postgres:
   image: postgres:16-alpine
