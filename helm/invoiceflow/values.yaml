@@ -1,0 +1,28 @@
+namespace: invoiceflow
+
+backend:
+  image:
+    repository: xpocky/invoicebackend
+    tag: latest
+    pullPolicy: Always
+  port: 5000
+
+frontend:
+  image:
+    repository: xpocky/invoicefrontend
+    tag: latest
+    pullPolicy: Always
+  port: 80
+  nodePort: 30081
+
+postgres:
+  image: postgres:16-alpine
+  port: 5432
+  storage: 2Gi
+
+secrets:
+  postgresUser: postgres
+  postgresPassword: postgres
+  postgresDb: invoiceflow
+  jwtSecret: invoiceflow_secret_key
+  jwtExpiresIn: 7d

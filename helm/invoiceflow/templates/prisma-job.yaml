@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: invoiceflow-prisma-db-push
+  namespace: {{ .Values.namespace }}
+
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: prisma
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          command: ["npx", "prisma", "db", "push"]
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: invoiceflow-secrets
+                  key: DATABASE_URL
+  backoffLimit: 3

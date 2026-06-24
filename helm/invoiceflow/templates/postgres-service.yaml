@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoicepostgres
+  namespace: {{ .Values.namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: invoicepostgres
+  ports:
+    - port: {{ .Values.postgres.port }}
+      targetPort: {{ .Values.postgres.port }}
