@@ -28,7 +28,7 @@ jobs:
           context: ./app/backend
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/invoicebackend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/invoicebackend:v1
             ${{ secrets.DOCKERHUB_USERNAME }}/invoicebackend:${{ github.sha }}
 
       - name: Build and push frontend image
@@ -37,5 +37,5 @@ jobs:
           context: ./app/frontend
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/invoicefrontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/invoicefrontend:v1
             ${{ secrets.DOCKERHUB_USERNAME }}/invoicefrontend:${{ github.sha }}
