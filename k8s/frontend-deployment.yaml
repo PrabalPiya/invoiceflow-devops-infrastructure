@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invoicefrontend
+  namespace: invoiceflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invoicefrontend
+  template:
+    metadata:
+      labels:
+        app: invoicefrontend
+    spec:
+      containers:
+        - name: frontend
+          image: xpocky/invoicefrontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

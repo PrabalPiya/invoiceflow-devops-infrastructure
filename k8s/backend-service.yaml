@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoicebackend
+  namespace: invoiceflow
+spec:
+  type: ClusterIP
+  selector:
+    app: invoicebackend
+  ports:
+    - port: 5000
+      targetPort: 5000

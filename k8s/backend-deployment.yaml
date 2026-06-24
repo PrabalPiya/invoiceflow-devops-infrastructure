@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invoicebackend
+  namespace: invoiceflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invoicebackend
+  template:
+    metadata:
+      labels:
+        app: invoicebackend
+    spec:
+      containers:
+        - name: backend
+          image: xpocky/invoicebackend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: JWT_SECRET
+            - name: JWT_EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: JWT_EXPIRES_IN
+            - name: PORT
+              value: "5000"
+            - name: CLIENT_URL
+              value: "http://localhost:30081"
