@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: prisma
-          image: xpocky/invoicebackend:latest
+          image: YOUR_DOCKERHUB_USERNAME/invoicebackend:latest
           command: ["npx", "prisma", "db", "push"]
           env:
             - name: DATABASE_URL

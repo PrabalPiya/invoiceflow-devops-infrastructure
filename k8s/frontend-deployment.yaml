@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: xpocky/invoicefrontend:latest
+          image: YOUR_DOCKERHUB_USERNAME/invoicefrontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
