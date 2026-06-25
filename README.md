@@ -444,7 +444,9 @@ up
 ```
 ---
 
-#### Notes: K8 folder was created for local kubernetes testing before implementing helm.
+#### Notes
+K8 folder was created for local kubernetes testing before implementing helm.
+There is no HPA on kubernetes or Autoscaling on EC2 because this is a simple project built to run on a single EC2 instance with limited CPU and memory.
 
 ---
 
