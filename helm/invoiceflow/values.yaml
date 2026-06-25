@@ -2,14 +2,14 @@ namespace: invoiceflow
 
 backend:
   image:
-    repository: xpocky/invoicebackend
+    repository: your_dockerhub_username/invoicebackend
     tag: v2
     pullPolicy: Always
   port: 5000
 
 frontend:
   image:
-    repository: xpocky/invoicefrontend
+    repository: your_dockerhub_username/invoicefrontend
     tag: v2
     pullPolicy: Always
   port: 80
