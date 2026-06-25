@@ -143,6 +143,7 @@ resource "aws_instance" "k3s_server" {
     db_password            = var.db_password
     jwt_secret             = var.jwt_secret
     github_raw_argocd_url  = var.github_raw_argocd_app_url
+    grafana_admin_password = var.grafana_admin_password
   })
 
   tags = {

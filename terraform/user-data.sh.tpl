@@ -30,10 +30,31 @@ kubectl -n invoiceflow create secret generic invoiceflow-secrets \
 
 # Install ArgoCD
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply --server-side -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # Wait until ArgoCD server is ready
 kubectl wait --for=condition=available --timeout=180s deployment/argocd-server -n argocd
 
 # Apply your ArgoCD app from GitHub raw URL
 kubectl apply -f ${github_raw_argocd_url}
+
+curl -fsSL -o /tmp/get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 /tmp/get_helm.sh
+/tmp/get_helm.sh
+
+kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --set grafana.adminPassword="${grafana_admin_password}" \
+  --set grafana.service.type=ClusterIP \
+  --set prometheus.service.type=ClusterIP \
+  --set alertmanager.service.type=ClusterIP \
+  --set kubeEtcd.enabled=false \
+  --set kubeControllerManager.enabled=false \
+  --set kubeScheduler.enabled=false \
+  --wait \
+  --timeout 10m

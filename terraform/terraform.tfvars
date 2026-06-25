@@ -13,3 +13,5 @@ db_username = "postgres"
 db_password = "postgres"
 
 jwt_secret = "invoice_scret_key"
+
+grafana_admin_password = "grafana"

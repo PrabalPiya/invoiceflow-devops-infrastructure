@@ -3,14 +3,14 @@ namespace: invoiceflow
 backend:
   image:
     repository: xpocky/invoicebackend
-    tag: v1
+    tag: v2
     pullPolicy: Always
   port: 5000
 
 frontend:
   image:
     repository: xpocky/invoicefrontend
-    tag: v1
+    tag: v2
     pullPolicy: Always
   port: 80
 
